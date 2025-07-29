@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Ticket - Sistema de Incidentes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .form-container {
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 20px 0;
+            background-color: #f8f9fa;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-label {
+            font-weight: 600;
+            color: #495057;
+        }
+        .form-control, .form-select {
+            border: 2px solid #ced4da;
+            border-radius: 6px;
+            padding: 12px;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+        .btn-primary {
+            padding: 12px 30px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Sistema de Tickets</a>
+            <div class="navbar-nav">
+                <a class="nav-link" href="/">Inicio</a>
+                <a class="nav-link" href="/tickets">Lista de Tickets</a>
+                <a class="nav-link" href="/tickets/new">Nuevo Ticket</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h2 class="mb-4 text-center" 
+                    th:text="${ticket.id != null} ? 'Editar Ticket' : 'Crear Nuevo Ticket'"></h2>
+                
+                <div class="form-container">
+                    <form th:action="@{/tickets/save}" th:object="${ticket}" method="post">
+                        <input type="hidden" th:field="*{id}" th:if="${ticket.id != null}">
+                        <input type="hidden" th:field="*{fechaCreacion}">
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nombrePersona" class="form-label">Nombre de la Persona *</label>
+                                    <input type="text" 
+                                           class="form-control" 
+                                           id="nombrePersona" 
+                                           th:field="*{nombrePersona}" 
+                                           placeholder="Ingrese el nombre completo"
+                                           required>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="numeroContacto" class="form-label">Número de Contacto *</label>
+                                    <input type="text" 
+                                           class="form-control" 
+                                           id="numeroContacto" 
+                                           th:field="*{numeroContacto}" 
+                                           placeholder="Teléfono o email"
+                                           required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="descripcion" class="form-label">Descripción del Incidente *</label>
+                            <textarea class="form-control" 
+                                      id="descripcion" 
+                                      th:field="*{descripcion}" 
+                                      rows="4" 
+                                      placeholder="Describa detalladamente el problema o incidente reportado..."
+                                      required></textarea>
+                            <small class="form-text text-muted">
+                                Proporcione una descripción clara y detallada del incidente para facilitar su resolución.
+                            </small>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="aplicacionAfectada" class="form-label">Aplicación Afectada *</label>
+                                    <select class="form-select" 
+                                            id="aplicacionAfectada" 
+                                            th:field="*{aplicacionAfectada}" 
+                                            required>
+                                        <option value="">Seleccione una aplicación</option>
+                                        <option th:each="aplicacion : ${aplicacionesAfectadas}" 
+                                                th:value="${aplicacion}" 
+                                                th:text="${aplicacion.displayName}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="prioridad" class="form-label">Prioridad *</label>
+                                    <select class="form-select" 
+                                            id="prioridad" 
+                                            th:field="*{prioridad}" 
+                                            required>
+                                        <option value="">Seleccione una prioridad</option>
+                                        <option th:each="prioridad : ${prioridades}" 
+                                                th:value="${prioridad}" 
+                                                th:text="${prioridad.displayName}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="grupoResolutor" class="form-label">Grupo Resolutor *</label>
+                                    <select class="form-select" 
+                                            id="grupoResolutor" 
+                                            th:field="*{grupoResolutor}" 
+                                            required>
+                                        <option value="">Seleccione un grupo resolutor</option>
+                                        <option th:each="grupo : ${gruposResolutores}" 
+                                                th:value="${grupo}" 
+                                                th:text="${grupo.displayName}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="fechaCreacion" class="form-label">Fecha y Hora de Creación</label>
+                                    <input type="text" 
+                                           class="form-control" 
+                                           id="fechaCreacion" 
+                                           th:value="${#temporals.format(ticket.fechaCreacion, 'dd/MM/yyyy HH:mm:ss')}"
+                                           readonly>
+                                    <small class="form-text text-muted">Asignada automáticamente al crear el ticket</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Solo mostrar estado en modo edición -->
+                        <div class="row" th:if="${ticket.id != null}">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="estado" class="form-label">Estado</label>
+                                    <select class="form-select" 
+                                            id="estado" 
+                                            th:field="*{estado}">
+                                        <option th:each="estado : ${estados}" 
+                                                th:value="${estado}" 
+                                                th:text="${estado.displayName}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary me-3">
+                                <i class="fas fa-save"></i> 
+                                <span th:text="${ticket.id != null} ? 'Actualizar Ticket' : 'Crear Ticket'"></span>
+                            </button>
+                            <a href="/tickets" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Cancelar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
