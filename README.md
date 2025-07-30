@@ -1,5 +1,7 @@
 # Sistema de Tickets de Incidentes
 
+🚀 **Aplicación en vivo:** [https://web-production-0776.up.railway.app/](https://web-production-0776.up.railway.app/)
+
 ## Descripción
 
 Aplicación web desarrollada con Spring Boot y Java para la gestión de tickets de incidentes. Permite crear, editar, visualizar y administrar tickets con diferentes estados y prioridades.
@@ -65,9 +67,18 @@ src/
 
 ## Despliegue en Railway
 
+✅ **Aplicación desplegada:** [https://web-production-0776.up.railway.app/](https://web-production-0776.up.railway.app/)
+
+### Pasos de deployment
+
 1. Conectar repositorio de GitHub
 2. Configurar MongoDB Atlas como base de datos
 3. Establecer variable de entorno MONGODB_URI
 4. Desplegar automáticamente
 
-La aplicación estará disponible en el dominio proporcionado por Railway.
+### Configuración de producción
+
+- **Base de datos:** MongoDB Atlas (M0 Sandbox)
+- **Plataforma:** Railway
+- **Variables de entorno:** MONGODB_URI, PORT
+- **Repositorio:** [https://github.com/gsvillacis/demo-mongo-tickets](https://github.com/gsvillacis/demo-mongo-tickets)
