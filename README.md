@@ -1,8 +1,15 @@
-# Sistema de Tickets de Incidentes
+# Sistema de Gestión de Tickets para Incidentes Tecnológicos
 
 🚀 **Aplicación en vivo:** [https://web-production-0776.up.railway.app/](https://web-production-0776.up.railway.app/)
 
 📦 **Repositorio GitHub:** [https://github.com/gsvillacis/demo-mongo-tickets](https://github.com/gsvillacis/demo-mongo-tickets)
+
+## 👩‍💻 Información del Desarrollador
+
+- **Nombre:** Gissela Stefania Villacis Villacis
+- **Correo electrónico:** [gsvillacis@utpl.edu.ec](mailto:gsvillacis@utpl.edu.ec)
+- **Empresa:** Banco Pichincha
+- **Proyecto:** Sistema de Gestión de Tickets para incidentes tecnológicos para Banco Pichincha
 
 ## Descripción
 
